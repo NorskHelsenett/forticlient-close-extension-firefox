@@ -1,0 +1,48 @@
+{
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_action": {
+    "default_icon": {
+      "72": "icons/icon-72x72.png",
+      "96": "icons/icon-96x96.png"
+    },
+    "default_title": "NHN Forticlient closer",
+    "default_popup": "index.html"
+  },
+  "commands": {
+    "toggle-feature": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "linux": "Ctrl+Shift+U"
+      },
+      "description": "Close forticlient tabs"
+    }
+  },
+  "content_security_policy": "script-src 'self' https://example.com; object-src 'self'",
+  "content_scripts": [
+    {
+      "exclude_matches": ["*://developer.mozilla.org/*"],
+      "matches": ["http://127.0.0.1:8020/*", "http://localhost:8020/*"],
+      "js": ["main.js"]
+    }
+  ],
+  "description": "NHN Forticlient closer",
+  "icons": {
+    "72": "icons/icon-72x72.png",
+    "96": "icons/icon-96x96.png"
+  },
+  "manifest_version": 2,
+  "name": "NHN Forticlient closer",
+  "page_action": {
+    "default_icon": {
+      "72": "icons/icon-72x72.png",
+      "96": "icons/icon-96x96.png"
+    },
+    "default_title": "NHN Forticlient closer",
+    "default_popup": "index.html"
+  },
+  "permissions": ["tabs", "activeTab"],
+  "version": "0.1",
+  "web_accessible_resources": ["icons/icon-72x72.png", "icons/icon-96x96.png", "index.html", "main.js"]
+}
