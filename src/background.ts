@@ -1,4 +1,6 @@
-function checkAndCloseTab(tab: browser.tabs.Tab): void {
+import browser from "webextension-polyfill";
+import { Tabs } from "webextension-polyfill/namespaces/tabs";
+function checkAndCloseTab(tab: Tabs.Tab): void {
   if (
     tab?.url?.indexOf("http://localhost:8020") !== -1 ||
     tab?.url?.indexOf("http://127.0.0.1:8020") !== -1
@@ -22,7 +24,7 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     .query({
       url: ["http://*/*"],
     })
-    .then((tabs: browser.tabs.Tab[]) => {
+    .then((tabs: Tabs.Tab[]) => {
       tabs.forEach((tab) => {
         checkAndCloseTab(tab);
       });

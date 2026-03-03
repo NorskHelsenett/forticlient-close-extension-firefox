@@ -1,5 +1,6 @@
-export {};
-function closeTab(tab: browser.tabs.Tab): void {
+import browser from "webextension-polyfill";
+import { Tabs } from "webextension-polyfill/namespaces/tabs";
+function closeTab(tab: Tabs.Tab): void {
   console.log("start closeTab");
   if (
     tab?.url?.indexOf("http://localhost:8020") !== -1 ||
