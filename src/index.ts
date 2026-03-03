@@ -1,5 +1,7 @@
+import browser from "webextension-polyfill";
+
 export {};
-function closeTab(tab: browser.tabs.Tab): void {
+function closeTab(tab: browser.Tabs.Tab): void {
   console.log("start closeTab");
   if (
     tab?.url?.indexOf("http://localhost:8020") !== -1 ||
@@ -13,7 +15,7 @@ function closeTab(tab: browser.tabs.Tab): void {
     }
     browser.tabs
       .remove(tab?.id)
-      .catch((error) => {
+      .catch((error: unknown) => {
         console.error(error);
       })
       .then(() => {
@@ -28,7 +30,7 @@ async function run() {
     url: ["http://*/*"],
   });
   console.log(tabs);
-  tabs.forEach((tab) => {
+  tabs.forEach((tab: browser.Tabs.Tab) => {
     closeTab(tab);
   });
 }

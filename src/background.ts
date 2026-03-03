@@ -1,11 +1,13 @@
-function checkAndCloseTab(tab: browser.tabs.Tab): void {
+import browser from "webextension-polyfill";
+
+function checkAndCloseTab(tab: browser.Tabs.Tab): void {
   if (
     tab?.url?.indexOf("http://localhost:8020") !== -1 ||
     tab?.url?.indexOf("http://127.0.0.1:8020") !== -1
   ) {
     browser.tabs
       .remove(tab.id ? tab.id : -1)
-      .catch((error) => console.error(error))
+      .catch((error: unknown) => console.error(error))
       .then(() => {
         console.log(`tab closed with title ${tab?.title} url ${tab?.url}`);
       });
@@ -14,7 +16,7 @@ function checkAndCloseTab(tab: browser.tabs.Tab): void {
   }
 }
 
-browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+browser.tabs.onUpdated.addListener((tabId: number, changeInfo: browser.Tabs.OnUpdatedChangeInfoType, tab: browser.Tabs.Tab) => {
   if (changeInfo.status !== "complete") {
     return;
   }
@@ -22,7 +24,7 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     .query({
       url: ["http://*/*"],
     })
-    .then((tabs: browser.tabs.Tab[]) => {
+    .then((tabs: browser.Tabs.Tab[]) => {
       tabs.forEach((tab) => {
         checkAndCloseTab(tab);
       });
